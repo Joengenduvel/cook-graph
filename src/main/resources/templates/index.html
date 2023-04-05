@@ -15,5 +15,27 @@
     <button type="submit">Search</button>
 </label>
 <h3>Results</h3>
+<table>
+    <thead>
+    <tr>
+        <th th:text="#{msg.title}" />
+        <th th:text="#{msg.description}" />
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="recipe, iStat : ${recipesPage.content}"
+        th:style="${iStat.odd}? 'font-weight: bold;'"
+        th:alt-title="${iStat.even}? 'even' : 'odd'">
+        <td th:text="${recipe.title}" />
+        <td th:text="${recipe.description}" />
+    </tr>
+    </tbody>
+</table>
+<div th:if="${recipesPage.totalPages > 0}" class="pagination"
+     th:each="pageNumber : ${pageNumbers}">
+    <a th:href="@{/(size=${recipesPage.size}, page=${pageNumber})}"
+       th:text="${pageNumber}"
+       th:class="${pageNumber==recipesPage.number + 1} ? active"></a>
+</div>
 </body>
 </html>
