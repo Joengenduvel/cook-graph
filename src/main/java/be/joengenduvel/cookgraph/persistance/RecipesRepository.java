@@ -18,13 +18,15 @@ public class RecipesRepository implements RecipeRepository {
 
     @Override
     public List<Recipe> findAllRecipes() {
-        return recipeNeo4jRepository.findAll().stream().map(r -> new Recipe("From Repo", "From Repo desc", Duration.ZERO)).collect(Collectors.toList());
+        return recipeNeo4jRepository.findAll().stream().map(r -> new Recipe(r.getRecipeId(), r.getTitle(), r.getDescription(), Duration.ZERO)).collect(Collectors.toList());
     }
 
     @Override
     public void save(Recipe recipe) {
         RecipeNode recipeNode = RecipeNode.builder()
-                .id(1)
+                .recipeId(recipe.id())
+                .title(recipe.title())
+                .description(recipe.description())
                 .build();
         recipeNeo4jRepository.save(recipeNode);
     }

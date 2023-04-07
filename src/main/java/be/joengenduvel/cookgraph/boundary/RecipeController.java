@@ -30,11 +30,7 @@ public class RecipeController {
             Model model,
             @PageableDefault(size = 1000) final Pageable pageable) {
 
-        List<Recipe> recipes = new ArrayList<>();
-        recipes.add(new Recipe("Recipe 1", "The best first recipe", Duration.of(1, ChronoUnit.MINUTES)));
-        recipes.add(new Recipe("Recipe 2", "The best second recipe", Duration.of(2, ChronoUnit.MINUTES)));
-
-        recipes = recipeRepository.findAllRecipes();
+        List<Recipe> recipes = recipeRepository.findAllRecipes();
 
         Page<Recipe> recipesPage = new PageImpl<>(recipes);
 
