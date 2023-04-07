@@ -3,8 +3,9 @@ package be.joengenduvel.cookgraph.persistance;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Node;
+
+import java.time.Duration;
 
 @Node
 @Builder
@@ -15,4 +16,5 @@ public class RecipeNode {
     private long recipeId;
     private String title;
     private String description;
+    private Duration duration;
 }
