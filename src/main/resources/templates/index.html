@@ -18,16 +18,18 @@
 <table>
     <thead>
     <tr>
-        <th th:text="#{msg.title}" />
+        <th th:text="#{msg.name}" />
         <th th:text="#{msg.description}" />
+        <th th:text="#{msg.ingredients}" />
     </tr>
     </thead>
     <tbody>
     <tr th:each="recipe, iStat : ${recipesPage.content}"
         th:style="${iStat.odd}? 'font-weight: bold;'"
         th:alt-title="${iStat.even}? 'even' : 'odd'">
-        <td th:text="${recipe.title}" />
+        <td th:text="${recipe.name}" />
         <td th:text="${recipe.description}" />
+        <td th:text="${recipe.ingredients}" />
     </tr>
     </tbody>
 </table>
