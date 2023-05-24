@@ -30,13 +30,11 @@ public class RecipeController {
             Model model,
             @PageableDefault(size = 1000) final Pageable pageable) {
 
-        List<Recipe> recipes = recipeRepository.findAllRecipes();
+        Page<Recipe> recipes = recipeRepository.findAllRecipes(pageable);
 
-        Page<Recipe> recipesPage = new PageImpl<>(recipes);
+        model.addAttribute("recipesPage", recipes);
 
-        model.addAttribute("recipesPage", recipesPage);
-
-        int totalPages = recipesPage.getTotalPages();
+        int totalPages = recipes.getTotalPages();
         if (totalPages > 0) {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
                     .boxed()

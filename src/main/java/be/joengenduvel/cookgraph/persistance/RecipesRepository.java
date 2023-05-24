@@ -4,9 +4,11 @@ import be.joengenduvel.cookgraph.application.RecipeMapper;
 import be.joengenduvel.cookgraph.domain.Recipe;
 import be.joengenduvel.cookgraph.domain.RecipeRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Repository
@@ -19,12 +21,17 @@ public class RecipesRepository implements RecipeRepository {
     private final RecipeMapper recipeMapper;
 
     @Override
-    public List<Recipe> findAllRecipes() {
-        return recipeNeo4jRepository.findAll().stream().map(recipeMapper::destinationToSource).collect(Collectors.toList());
+    public Page<Recipe> findAllRecipes(Pageable pageable) {
+        return recipeNeo4jRepository.findAll(pageable).map(recipeMapper::destinationToSource);
     }
 
     @Override
     public void save(Recipe recipe) {
         recipeNeo4jRepository.save(recipeMapper.sourceToDestination(recipe));
+    }
+
+    @Override
+    public void deleteAllRecipes() {
+        recipeNeo4jRepository.deleteAll();
     }
 }

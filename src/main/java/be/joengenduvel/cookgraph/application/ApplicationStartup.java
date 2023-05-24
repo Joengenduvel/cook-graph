@@ -18,6 +18,7 @@ public class ApplicationStartup implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
+        recipeRepository.deleteAllRecipes();
         Product celery = Product.builder()
                 .productId(1L)
                 .name("Celery")
@@ -29,7 +30,6 @@ public class ApplicationStartup implements InitializingBean {
                 .build();
 
         Ingredient celeryIngredient = Ingredient.builder()
-//                .ingredientId(0L)
                 .gramsQuantity(100)
                 .mlQuantity(100)
                 .amount(2)
@@ -37,14 +37,13 @@ public class ApplicationStartup implements InitializingBean {
                 .build();
 
         Ingredient hamIngredient = Ingredient.builder()
-//                .ingredientId(1L)
                 .gramsQuantity(50)
                 .mlQuantity(50)
                 .amount(1)
                 .product(ham)
                 .build();
 
-        Recipe exampleRecipe = Recipe.builder()
+        Recipe exampleRecipe1 = Recipe.builder()
                 .id(1L)
                 .name("First Recipe")
                 .description("A very Simple recipe")
@@ -52,6 +51,33 @@ public class ApplicationStartup implements InitializingBean {
                 .ingredient(celeryIngredient)
                 .ingredient(hamIngredient)
                 .build();
-        recipeRepository.save(exampleRecipe);
+
+        Recipe exampleRecipe2 = Recipe.builder()
+                .id(2L)
+                .name("Second Recipe")
+                .description("A very Simple recipe")
+                .duration(Duration.ZERO)
+                .ingredient(hamIngredient)
+                .build();
+
+        Recipe exampleRecipe3 = Recipe.builder()
+                .id(3L)
+                .name("Third Recipe")
+                .description("A very Simple recipe")
+                .duration(Duration.ZERO)
+                .ingredient(celeryIngredient)
+                .build();
+
+        Recipe exampleRecipe4 = Recipe.builder()
+                .id(4L)
+                .name("Forth Recipe")
+                .description("A very Simple recipe")
+                .duration(Duration.ZERO)
+                .build();
+
+        recipeRepository.save(exampleRecipe1);
+        recipeRepository.save(exampleRecipe2);
+        recipeRepository.save(exampleRecipe3);
+        recipeRepository.save(exampleRecipe4);
     }
 }
